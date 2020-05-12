@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter, NavLink, Route, Switch
-} from 'react-router-dom';
-import { Menu, Header, Icon, Sidebar, Button, Label, Sticky } from 'semantic-ui-react';
+import { BrowserRouter as Router, NavLink, Route, Switch } from 'react-router-dom';
 import './App.css';
-import 'semantic-ui-css/semantic.min.css';
 
-import FrontPage from './pages/FrontPage';
-import AboutPage from './pages/AboutPage';
+import 'semantic-ui-css/semantic.min.css';
+import { Menu, Icon, Image } from 'semantic-ui-react';
+import Particles from "react-particles-js";
+import particleParams from './particles.json';
+
+import WelcomePage from './pages/WelcomePage';
+import ContactPage from './pages/ContactPage';
 import Error404Page from './pages/Error404Page';
 
 class App extends Component {
@@ -16,7 +17,6 @@ class App extends Component {
     super(props);
 
     // init state here if needed
-    this.handleItemClick = this.handleItemClick.bind(this);
     this._isMounted = false;
     this.state = {};
   }
@@ -29,43 +29,48 @@ class App extends Component {
     this._isMounted = false;
   }
 
-  handleItemClick(e, {name}) {
-    if (this._isMounted)
-      this.setState({activeItem: name})
-  }
-
   render() {
     console.log("Happy Rendering!");
-    const {activeItem} = this.state;
-    console.log("Active item is:");
-    console.log(activeItem);
     return (
-        <BrowserRouter>
-          <Menu>
+        <Router>
+          <Menu inverted stackable>
 
-            <NavLink to="/">
-              <Menu.Item link name="front" active={activeItem === "front"} onClick={this.handleItemClick}>
-                Front
-              </Menu.Item>
-            </NavLink>
+            <Menu.Item header>
+              <Image size='mini' spaced src='../TritonCubed_LogoBase_Professional_White.png' /> TritonCubed
+            </Menu.Item>
 
-            <NavLink to="/about">
-              <Menu.Item link name="about" active={activeItem === "about"} onClick={this.handleItemClick}>
-                About
-              </Menu.Item>
-            </NavLink>
+            <Menu.Item as={NavLink} to='/' exact>
+              Welcome
+            </Menu.Item>
 
+            <Menu.Item as={NavLink} to='/teams' exact>
+              Teams
+            </Menu.Item>
+
+            <Menu.Item as={NavLink} to='/projects' exact>
+              Projects
+            </Menu.Item>
+
+            <Menu.Item as={NavLink} to='/sponsors' exact>
+              Sponsors
+            </Menu.Item>
+
+            <Menu.Item as={NavLink} to='/contact' exact>
+              Contact Us
+            </Menu.Item>
           </Menu>
 
-          <div>
-            <br/>
-            <Switch>
-              <Route exact path="/" component={FrontPage} />
-              <Route exact path="/about" component={AboutPage} />
-              <Route path="*" component={Error404Page} />
-            </Switch>
-          </div>
-        </BrowserRouter>
+          {
+            // uncomment when you want to try this out
+            //<Particles id='particles-background' params={particleParams}/>
+          }
+
+          <Switch>
+            <Route exact path="/" component={WelcomePage} />
+            <Route exact path="/contact" component={ContactPage} />
+            <Route path="*" component={Error404Page} />
+          </Switch>
+        </Router>
     );
   }
 }
