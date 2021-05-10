@@ -10,6 +10,7 @@ import particleParams from './particles.json';
 import WelcomePage from './pages/WelcomePage';
 import ContactPage from './pages/ContactPage';
 import Error404Page from './pages/Error404Page';
+import DemoPage from './pages/DemoPage'
 
 class App extends Component {
 
@@ -58,6 +59,10 @@ class App extends Component {
             <Menu.Item as={NavLink} to='/contact' exact>
               Contact Us
             </Menu.Item>
+
+            <Menu.Item as={NavLink} to='/demo' exact>
+              Demo
+            </Menu.Item>
           </Menu>
 
           {
@@ -68,6 +73,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={WelcomePage} />
             <Route exact path="/contact" component={ContactPage} />
+            <Route exact path="/demo" component={DemoPage} />
             <Route path="*" component={Error404Page} />
           </Switch>
         </Router>
