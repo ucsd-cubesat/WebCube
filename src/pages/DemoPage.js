@@ -6,20 +6,16 @@ class DemoPage extends Component {
     constructor(props) {
         super(props);
 
-        // init state here if needed
-        this._isMounted = false;
         this.state = {
             data: []
         };
     }
 
     componentDidMount() {
-        this._isMounted = true;
         this.updateData()
     }
 
     componentWillUnmount() {
-        this._isMounted = false;
     }
 
     updateData() {
