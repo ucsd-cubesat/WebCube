@@ -3,9 +3,7 @@ import { BrowserRouter as Router, NavLink, Route, Switch } from 'react-router-do
 import './App.css';
 
 import 'semantic-ui-css/semantic.min.css';
-import { Menu, Icon, Image } from 'semantic-ui-react';
-import Particles from "react-particles-js";
-import particleParams from './particles.json';
+import {Menu, Icon, Image, Container} from 'semantic-ui-react';
 
 import WelcomePage from './pages/WelcomePage';
 import ContactPage from './pages/ContactPage';
@@ -31,51 +29,49 @@ class App extends Component {
   }
 
   render() {
-    console.log("Happy Rendering!");
     return (
         <Router>
-          <Menu inverted stackable>
+            <Menu inverted style={{marginBottom: 0}}>
+              <Menu.Item header>
+                <Image size='mini' spaced src='../TritonCubed_LogoBase_Professional_White.png' /> TritonCubed
+              </Menu.Item>
 
-            <Menu.Item header>
-              <Image size='mini' spaced src='../TritonCubed_LogoBase_Professional_White.png' /> TritonCubed
-            </Menu.Item>
+              <Menu.Item as={NavLink} to='/' exact>
+                Welcome
+              </Menu.Item>
 
-            <Menu.Item as={NavLink} to='/' exact>
-              Welcome
-            </Menu.Item>
+              <Menu.Item as={NavLink} to='/teams' exact>
+                Teams
+              </Menu.Item>
 
-            <Menu.Item as={NavLink} to='/teams' exact>
-              Teams
-            </Menu.Item>
+              <Menu.Item as={NavLink} to='/projects' exact>
+                Projects
+              </Menu.Item>
 
-            <Menu.Item as={NavLink} to='/projects' exact>
-              Projects
-            </Menu.Item>
+              <Menu.Item as={NavLink} to='/sponsors' exact>
+                Sponsors
+              </Menu.Item>
 
-            <Menu.Item as={NavLink} to='/sponsors' exact>
-              Sponsors
-            </Menu.Item>
+              <Menu.Item as={NavLink} to='/contact' exact>
+                Contact Us
+              </Menu.Item>
 
-            <Menu.Item as={NavLink} to='/contact' exact>
-              Contact Us
-            </Menu.Item>
+              <Menu.Item as={NavLink} to='/demo' exact>
+                Demo
+              </Menu.Item>
+            </Menu>
 
-            <Menu.Item as={NavLink} to='/demo' exact>
-              Demo
-            </Menu.Item>
-          </Menu>
+            {
+              // uncomment when you want to try this out
+              //<Particles id='particles-background' params={particleParams}/>
+            }
 
-          {
-            // uncomment when you want to try this out
-            //<Particles id='particles-background' params={particleParams}/>
-          }
-
-          <Switch>
-            <Route exact path="/" component={WelcomePage} />
-            <Route exact path="/contact" component={ContactPage} />
-            <Route exact path="/demo" component={DemoPage} />
-            <Route path="*" component={Error404Page} />
-          </Switch>
+            <Switch>
+              <Route exact path="/" component={WelcomePage} />
+              <Route exact path="/contact" component={ContactPage} />
+              <Route exact path="/demo" component={DemoPage} />
+              <Route path="*" component={Error404Page} />
+            </Switch>
         </Router>
     );
   }

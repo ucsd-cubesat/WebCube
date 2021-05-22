@@ -17,8 +17,13 @@
   color: #09d3ac;
 }
 
+#root {
+  height: 100%;
+}
+
 .ui.menu {
   border-radius: 0 !important;
+  height: 6.6% !important;
 }
 
 #particles-background {
