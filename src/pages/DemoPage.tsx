@@ -7,7 +7,7 @@ import { Canvas } from '@react-three/fiber'
 // @ts-ignore
 import {LineChart} from 'react-chartkick'
 import 'chartkick/chart.js'
-import VectorPlot from "../components/VectorPlot"
+import VectorPlot from "../components/VectorPlot";
 
 interface Payload {
     utc: number
@@ -107,8 +107,7 @@ class DemoPage extends Component<any, DemoPageState> {
                         <Canvas style={{position: 'relative', zIndex: 200,
                             top: '17em', left: '3em', width: '10em', height: '10em',
                             backgroundColor: 'black'}}>
-                            <ambientLight intensity={1}/>
-                            <VectorPlot x={1} y={1} z={1} />
+                            <ambientLight intensity={1}/>react-chartkick
                         </Canvas>
                     </Map>
                 </div>
