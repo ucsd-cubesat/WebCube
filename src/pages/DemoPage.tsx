@@ -11,20 +11,20 @@ import SimplePlaceholder from "../components/SimplePlaceholder";
 
 interface Payload {
     utc: number
-    accel_x: number
-    accel_y: number
-    accel_z: number
-    gyro_x: number
-    gyro_y: number
-    gyro_z: number
-    mag_x: number
-    mag_y: number
-    mag_z: number
+    accel_X: number
+    accel_Y: number
+    accel_Z: number
+    gyro_X: number
+    gyro_Y: number
+    gyro_Z: number
+    mag_X: number
+    mag_Y: number
+    mag_Z: number
     temp_C: number
-
-    // Needed in the future
     latitude: number
     longitude: number
+
+    // Needed in the future
     altitude: number
 }
 
@@ -58,7 +58,7 @@ class DemoPage extends Component<any, DemoPageState> {
     }
 
     componentDidMount() {
-        this.interval = setInterval(this.scheduleRequest, 3000);
+        this.interval = setInterval(this.scheduleRequest, 2000);
     }
 
     componentWillUnmount() {
@@ -72,7 +72,7 @@ class DemoPage extends Component<any, DemoPageState> {
     }
 
     pushData(packet: Payload) {
-        if (packet !== this.state.lastPacket) {
+        if (!this.state.lastPacket || this.state.lastPacket.utc !== packet.utc) {
             let packets = [...this.state.packets, packet];
             if (packets.length > 10) packets.shift();
             this.setState({
@@ -95,7 +95,7 @@ class DemoPage extends Component<any, DemoPageState> {
                 <circle cx={width / 2} cy={width / 2} r={width / 2} fill={color}/>
                 <circle cx={width / 2} cy={width / 2} r={width / 4} fill={'rgba(0,0,0,0.2)'}/>
             </svg>
-            return <Overlay anchor={anchor} offset={[width / 2, width / 2]}>
+            return <Overlay key={"mark_"+e.utc} anchor={anchor} offset={[width / 2, width / 2]}>
                 <Popup trigger={mark} content={anchor.toString()} style={{fontFamily: 'monospace'}}/>
             </Overlay>
         })
@@ -130,21 +130,21 @@ class DemoPage extends Component<any, DemoPageState> {
 
                     {showAccel && <div style={{position: 'absolute', zIndex: 200,
                         top: '1em', right: '1em', width: '15em', height: '15em'}}> {
-                        lastPacket ? <VectorPlot x={lastPacket.accel_x} y={lastPacket.accel_y} z={lastPacket.accel_z} title={"Accelerometer"} />
+                        lastPacket ? <VectorPlot x={lastPacket.accel_X} y={lastPacket.accel_Y} z={lastPacket.accel_Z} title={"Accelerometer (m/s^2)"} />
                             : <SimplePlaceholder />
                     }
                     </div>}
 
                     {showGyro && <div style={{position: 'absolute', zIndex: 200,
                         top: '17em', right: '1em', width: '15em', height: '15em'}}> {
-                        lastPacket ? <VectorPlot x={lastPacket.gyro_x} y={lastPacket.gyro_y} z={lastPacket.gyro_y} title={"Gyroscope"}/>
+                        lastPacket ? <VectorPlot x={lastPacket.gyro_X} y={lastPacket.gyro_Y} z={lastPacket.gyro_Z} title={"Gyroscope (deg/s)"}/>
                             : <SimplePlaceholder/>
                     }
                     </div>}
 
                     {showMagneto && <div style={{position: 'absolute', zIndex: 200,
                         top: '33em', right: '1em', width: '15em', height: '15em'}}> {
-                        lastPacket ? <VectorPlot x={lastPacket.mag_x} y={lastPacket.mag_y} z={lastPacket.mag_z} title={"Magnetosensor"}/>
+                        lastPacket ? <VectorPlot x={lastPacket.mag_X} y={lastPacket.mag_Y} z={lastPacket.mag_Z} title={"Magnetosensor (guass)"}/>
                             : <SimplePlaceholder/>
                     }
                     </div>}
